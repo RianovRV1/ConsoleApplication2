@@ -15,9 +15,12 @@ void WriteToMap(string fileName, int height, int width);
 int _tmain(int argc, _TCHAR* argv[])
 {
 	srand(time(NULL));
+	int x, y;
+	x = 0;
+	y = 0;
 	string FileName = "map.map";
 	stringstream SubFileName;
-	SubFileName << rand() % 10;
+	SubFileName << x << y;
 	FileName.insert(3, SubFileName.str());
 	cout << FileName << endl;
 
@@ -32,8 +35,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		file2.close();
 	}
-	const char* file = FileName.c_str();
-	remove(file);
+	remove(FileName.c_str());
 	system("PAUSE");
 	return 0;
 }
