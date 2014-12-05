@@ -11,13 +11,19 @@
 using namespace std;
 const int TOTAL_TILE_SPRITES = 4; 
 string FillNumber(int num);
-void WriteToMap(int height, int width);
+void WriteToMap(string fileName, int height, int width);
 int _tmain(int argc, _TCHAR* argv[])
 {
 	srand(time(NULL));
+	string FileName = "map.map";
+	stringstream SubFileName;
+	SubFileName << rand() % 10;
+	FileName.insert(3, SubFileName.str());
+	cout << FileName << endl;
+
 	string line;
-	WriteToMap(10, 16);
-	ifstream file2("map.map");
+	WriteToMap(FileName, 10, 16);
+	ifstream file2(FileName);
 	if (file2.is_open())
 	{
 		while (getline(file2, line))
@@ -26,7 +32,8 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		file2.close();
 	}
-	remove("map.map");
+	const char* file = FileName.c_str();
+	remove(file);
 	system("PAUSE");
 	return 0;
 }
@@ -38,10 +45,10 @@ string FillNumber(int num)
 	return fill.str();
 }
 
-void WriteToMap(int height, int width)
+void WriteToMap(string fileName, int height, int width)
 {
 	int wallLimit = (((2 * (height - 2)) + (2 * width)) / 4);
-	ofstream file("map.map");
+	ofstream file(fileName);
 	for (int i = 0; i < height; ++i)
 	{
 		int toLimit = 0;
