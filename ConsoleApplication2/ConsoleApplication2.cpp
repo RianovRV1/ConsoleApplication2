@@ -73,7 +73,7 @@ void WriteToMap(string fileName, int height, int width)
 			else//rest of floor
 			{
 				int num = rand() % (TOTAL_TILE_SPRITES-4) + 4;
-				if (num == 4 && toLimit < wallLimit)
+				if (num == 4 && toLimit < wallLimit && ((i != 1 || i != height - 2)&& j != 1 || j != width - 2))
 				{
 					file << FillNumber(num) << " ";
 					++toLimit;
