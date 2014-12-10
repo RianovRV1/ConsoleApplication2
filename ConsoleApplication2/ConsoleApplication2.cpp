@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <sstream>
 using namespace std;
-const int TOTAL_TILE_SPRITES = 4; 
+const int TOTAL_TILE_SPRITES = 6; 
 string FillNumber(int num);
 void WriteToMap(string fileName, int height, int width);
 int _tmain(int argc, _TCHAR* argv[])
@@ -72,7 +72,7 @@ void WriteToMap(string fileName, int height, int width)
 
 			else//rest of floor
 			{
-				int num = rand() % TOTAL_TILE_SPRITES + 4;
+				int num = rand() % (TOTAL_TILE_SPRITES-4) + 4;
 				if (num == 4 && toLimit < wallLimit)
 				{
 					file << FillNumber(num) << " ";
@@ -80,7 +80,7 @@ void WriteToMap(string fileName, int height, int width)
 				}
 				else if (num == 4 && toLimit >= wallLimit)
 				{
-					num = (rand() % (TOTAL_TILE_SPRITES - 1)) + 5;
+					num = (rand() % (TOTAL_TILE_SPRITES - 5)) + 5;
 					file << FillNumber(num) << " ";
 				}
 				else
