@@ -49,7 +49,7 @@ string FillNumber(int num)
 
 void WriteToMap(string fileName, int height, int width)
 {
-	int wallLimit = (((height*width) - (2 * (height - 2)) + (2 * width)) / 4);
+	int wallLimit = (((height*width) - (2 * (height - 2)) + (2 * width)) / 5);
 	ofstream file(fileName);
 	for (int i = 0; i < height; ++i)
 	{
@@ -72,17 +72,23 @@ void WriteToMap(string fileName, int height, int width)
 
 			else//rest of floor
 			{
-				int num = rand() % (TOTAL_TILE_SPRITES-4) + 4;
-				if (num == 4 && toLimit < wallLimit && ((i != 1 || i != height - 2)&& j != 1 || j != width - 2))
-				{
-					file << FillNumber(num) << " ";
-					++toLimit;
-				}
-				else if (num == 4 && toLimit >= wallLimit)
+				int num = rand() % (TOTAL_TILE_SPRITES - 4) + 4;
+				if (num == 4 && (toLimit >= wallLimit || // wall limit
+					((i == 1 && j > 0 && j < width - 1) || // top wall
+					(i == height - 2 && j > 0 && j < width - 1) || // bottom wall
+					(j == 1 && i > 0 && i < height - 1) || //left wall
+					(j == width - 2 && i > 0 && i < height - 1)))) // right wall
 				{
 					num = (rand() % (TOTAL_TILE_SPRITES - 5)) + 5;
 					file << FillNumber(num) << " ";
 				}
+
+				else if (num == 4 && toLimit < wallLimit)
+				{
+					file << FillNumber(num) << " ";
+					++toLimit;
+				}
+
 				else
 				{
 					file << FillNumber(num) << " ";
